@@ -62,4 +62,36 @@ grep -e 'system.l3.demand_accesses::total' -e 'system.l3.demand_misses::total' -
 cp m5out/stats.txt m5out/stat_2way.txt
 cp m5out/stats.txt m5out/stat_fullway.txt
 ```
+(Q4) Modify last level cache policy based on frequency based replacement policy
+---
+*原始LRU*
+- 改Caches.py
+```
+class L3Cache(Cache):
+    # ... 其他設定
+    replacement_policy = LRURP()
+```
+- 一樣用quicksort binary (2way)跑 gem5
+```
+同2way
+```
+- 複製一份新的log
+```
+cp m5out/stats.txt m5out/stat_LRU.txt   
+```
+*修改frequency-based（LFU）*
+- 改Caches.py
+```
+class L3Cache(Cache):
+    # ... 其他設定
+    replacement_policy = Param.BaseReplacementPolicy(LFURP(), "Replacement policy")
+```
+- 一樣用quicksort binary (2way)跑 gem5
+```
+同2way
+```
+- 複製一份新的log
+```
+cp m5out/stats.txt m5out/stat_FRU.txt   
+```
 
