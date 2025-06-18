@@ -11,6 +11,10 @@
 - Xbar.py
 - BaseCPU.py
 - CacheConfig.py
+改完要
+```
+scons build/X86/gem5.opt -j4
+```
 
 (Q3) Config last level cache to 2-way and full-way associative cache and test performance
 ---
@@ -46,3 +50,16 @@ file quicksort_x86_static
   --mem-type=NVMainMemory \
   --nvmain-config=../NVmain/Config/PCM_ISSCC_2012_4GB.config
 ```
+- check L2 L3 資訊
+```
+grep -e 'system.l2.demand_accesses::total' -e 'system.l2.demand_misses::total' -e 'system.l2.demand_miss_rate::total' m5out/stats.txt
+```
+```
+grep -e 'system.l3.demand_accesses::total' -e 'system.l3.demand_misses::total' -e 'system.l3.demand_miss_rate::total' m5out/stats.txt
+```
+- 複製output
+```
+cp m5out/stats.txt m5out/stat_2way.txt
+cp m5out/stats.txt m5out/stat_fullway.txt
+```
+
